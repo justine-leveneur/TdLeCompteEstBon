@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.Controller">
+   <children>
+      <SplitPane dividerPositions="0.16363636363636364" orientation="VERTICAL" prefHeight="552.0" prefWidth="700.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Text layoutX="43.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo :">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="pseudo" layoutX="131.0" layoutY="29.0" promptText="MARCEL">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="jouer" layoutX="317.0" layoutY="31.0" mnemonicParsing="false" onAction="#Jouer" prefHeight="25.0" prefWidth="108.0" text="Jouer" />
+                  <Button fx:id="scores" layoutX="437.0" layoutY="32.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Scores" />
+                  <Text layoutX="621.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="demarrerPartie" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" visible="false">
+               <children>
+                  <SplitPane dividerPositions="0.75" prefHeight="448.0" prefWidth="698.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <TextArea layoutX="14.0" layoutY="150.0" prefHeight="251.0" prefWidth="289.0" text="9 X 3 = 27               75 + 27 = 102" wrapText="true">
+                                 <font>
+                                    <Font size="29.0" />
+                                 </font>
+                              </TextArea>
+                              <Button fx:id="supprimer" layoutX="123.0" layoutY="407.0" mnemonicParsing="false" text="Supprimer" />
+                              <Button fx:id="proposer" alignment="CENTER" layoutX="354.0" layoutY="276.0" mnemonicParsing="false" text="Proposer">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Text layoutX="348.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="264" textAlignment="CENTER" wrappingWidth="107.99999721348286">
+                                 <font>
+                                    <Font size="32.0" />
+                                 </font>
+                              </Text>
+                              <Text layoutX="328.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre à trouver" textAlignment="CENTER" wrappingWidth="148.99998903274536">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="valider" layoutX="388.0" layoutY="115.0" mnemonicParsing="false" prefWidth="70.0" text="Valider" textAlignment="CENTER" />
+                              <Button fx:id="annuler" layoutX="313.0" layoutY="115.0" mnemonicParsing="false" prefWidth="70.0" text="Annuler" textAlignment="CENTER" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="25.0" layoutX="14.0" layoutY="115.0" stroke="#004dff" strokeType="INSIDE" width="289.0" />
+                              <Label layoutX="18.0" layoutY="119.0" prefHeight="17.0" prefWidth="282.0" text="100 - 8 = 92" />
+                              <Button layoutX="200.0" layoutY="14.0" mnemonicParsing="false" prefWidth="40.0" text="+">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="250.0" layoutY="14.0" mnemonicParsing="false" prefWidth="40.0" text="-">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="300.0" layoutY="14.0" mnemonicParsing="false" prefWidth="40.0" text="X">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="350.0" layoutY="13.0" mnemonicParsing="false" prefWidth="40.0" text="/">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <Text layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" textAlignment="CENTER" wrappingWidth="170.9999918937683">
+                                 <font>
+                                    <Font size="56.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</Pane>
