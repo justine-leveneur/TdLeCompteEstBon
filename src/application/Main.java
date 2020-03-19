@@ -1,8 +1,9 @@
-package controleur;
+package application;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -11,9 +12,11 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Pane root = (Pane)FXMLLoader.load(getClass().getResource("Interface.fxml"));
-			Scene scene = new Scene(root,690,532);
+			Pane root = (Pane)FXMLLoader.load(getClass().getResource("Vue.fxml"));
+			Scene scene = new Scene(root,690,530);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setTitle("Le compte est bon");
+			primaryStage.getIcons().setAll(new Image(getClass().getResource("vues/3ilogo.png").toExternalForm()));
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();

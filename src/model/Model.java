@@ -1,8 +1,8 @@
-package modele;
+package model;
 
 import java.util.LinkedList;
 
-public class Modele {
+public class Model {
 	
 	private LinkedList deroulement = new LinkedList <Etape>();
 	private Object gereScores;

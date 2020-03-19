@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controleur">
    <children>
       <SplitPane dividerPositions="0.16363636363636364" orientation="VERTICAL" prefHeight="552.0" prefWidth="700.0">
         <items>
@@ -27,14 +27,14 @@
                         <Font size="21.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="pseudo" layoutX="131.0" layoutY="29.0" promptText="MARCEL">
+                  <TextField fx:id="pseudo" focusTraversable="false" layoutX="131.0" layoutY="29.0" promptText="MARCEL">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="jouer" layoutX="317.0" layoutY="31.0" mnemonicParsing="false" onAction="#Jouer" prefHeight="25.0" prefWidth="108.0" text="Jouer" />
-                  <Button fx:id="scores" layoutX="437.0" layoutY="32.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Scores" />
-                  <Text layoutX="621.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00">
+                  <Button fx:id="jouer" focusTraversable="false" layoutX="317.0" layoutY="31.0" mnemonicParsing="false" onAction="#Jouer" prefHeight="25.0" prefWidth="108.0" text="Jouer" />
+                  <Button fx:id="scores" focusTraversable="false" layoutX="437.0" layoutY="32.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Scores" />
+                  <Text fx:id="dateNow" layoutX="621.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0">
                      <font>
                         <Font size="17.0" />
                      </font>
