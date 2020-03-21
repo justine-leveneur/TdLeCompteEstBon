@@ -79,13 +79,43 @@ public class Controleur{
 	@FXML
 	private void valider(ActionEvent valider) {
 		content.setText(content.getText() + "\n" + model.calculer(indice1, indice2, operateur));
+		operation.setText("");
 		changeButtonOprationDisabilitie(false);
-		for (Button valeur: plaque) valeur.setDisable(false);		
+		for (Button valeur: plaque) valeur.setDisable(false);
+		for (Button oldValues: plaque) {
+			tabPlaques.getChildren().remove(oldValues);
+		}
+		creationBoutonsPlaques(model.creerNouvellesPlaques(indice1, indice2));
+		indice1 = -1;
+		indice2 = -1;
 	}
 
 	@FXML
 	private void annuler(ActionEvent annuler) {
-		content.setText(content.getText() + "\n" + model.calculer(indice1, indice2, operateur));
+		changeButtonOprationDisabilitie(false);
+		for (Button valeur: plaque) valeur.setDisable(false);
+		operation.setText("");
+		indice1 = -1;
+		indice2 = -1;
+	}
+	
+	@FXML
+	private void supprimer(ActionEvent supprimer) {
+		changeButtonOprationDisabilitie(false);
+		for (Button valeur: plaque) valeur.setDisable(false);
+		for (Button oldValues: plaque) {
+			tabPlaques.getChildren().remove(oldValues);
+		}
+		content.setText(content.getText().substring(0, content.getText().lastIndexOf("\n")));
+		operation.setText("");
+		creationBoutonsPlaques(model.supprimerEtape());
+		indice1 = -1;
+		indice2 = -1;
+	}
+	
+	@FXML
+	private void proposer(ActionEvent proposer) {
+		
 	}
 
 	private void preparer() {

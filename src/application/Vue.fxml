@@ -50,7 +50,7 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="supprimer" disable="true" layoutX="125.0" layoutY="401.0" mnemonicParsing="false" text="Supprimer" />
+                              <Button fx:id="supprimer" disable="true" layoutX="125.0" layoutY="401.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
                               <Button fx:id="proposer" alignment="CENTER" disable="true" layoutX="354.0" layoutY="276.0" mnemonicParsing="false" text="Proposer">
                                  <font>
                                     <Font size="18.0" />
