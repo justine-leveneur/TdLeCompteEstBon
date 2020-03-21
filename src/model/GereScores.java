@@ -9,24 +9,34 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.TreeSet;
 
 public class GereScores {
-	private List <Score> tableJeu;
-	public static int TOP = 10;
-	public static String PATH = "./score.ser";
-	public static String HTMLFILE = "./scores.html";
+	private TreeSet <Score> tableJeu;
+	private static int TOP = 10;
+	public static String PATH = "../score/score.ser";
+	public static String HTMLFILE = "../score/scores.html";
 
-	/**
+	/** 
+	 * Constructeur privé 
 	 * gere les scores
 	 */
-	public void gere() {		
-		load();
-		save();
-		export();
-	}
+    private GereScores()
+    {}
+ 
+    /** 
+     * Instance unique non pré-initialisée 
+     */
+    private static GereScores INSTANCE = null;
+    
+    /** 
+     * Point d'accès pour l'instance unique du singleton
+     */
+    public static GereScores getInstance()
+    {   
+    	if (INSTANCE == null) INSTANCE = new GereScores(); 
+    	return INSTANCE;
+    }
 
 	/**
 	 * ajout du score d'un joueur
@@ -36,17 +46,9 @@ public class GereScores {
 	 */
 	public void addScore(String pseudo, int valeur, int temps) {
 		tableJeu.add(new Score(pseudo, valeur, temps));
-		sort();
 		while(tableJeu.size() > TOP) {
 			tableJeu.remove(TOP);
 		}
-	}
-
-	/**
-	 * trie de la liste de score
-	 */
-	public void sort() {
-		Collections.sort(tableJeu);
 	}
 
 	/**
@@ -54,7 +56,7 @@ public class GereScores {
 	 */
 	public void load() {
 		File file = new File(PATH);
-		tableJeu = new LinkedList <Score>();
+		tableJeu = new TreeSet <Score>();
 
 		if(file.exists()) {
 			ObjectInputStream oos = null;
@@ -87,7 +89,6 @@ public class GereScores {
 				}
 			}
 		}
-		sort();
 	}
 
 	/**
@@ -147,4 +148,14 @@ public class GereScores {
 			System.err.println(e);
 		} 
 	}
+
+	public TreeSet<Score> getTableJeu() {
+		return tableJeu;
+	}
+
+	public void setTableJeu(TreeSet<Score> tableJeu) {
+		this.tableJeu = tableJeu;
+	}
+	
+	
 }
