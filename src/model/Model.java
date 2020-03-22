@@ -76,8 +76,13 @@ public class Model {
 
 	public void score(int temps) {
 		Etape derniereEtapeValidee = deroulement.get(deroulement.size()-2);
-		int score = nbATrouver-derniereEtapeValidee.getResultat();
-		gereScores.addScore(pseudo, score, temps);
+		int score = Math.abs(nbATrouver-derniereEtapeValidee.getResultat());
+		gereScores.addScore(pseudo, score, dureeMax-temps);
+	}
+	
+	public int getScore() {
+		Etape derniereEtapeValidee = deroulement.get(deroulement.size()-2);
+		return Math.abs(nbATrouver-derniereEtapeValidee.getResultat());
 	}
 	
 	public int[] creerNouvellesPlaques(int indice1, int indice2) {
@@ -118,13 +123,22 @@ public class Model {
 		this.dureeMax = dureeMax;
 	}
 
+	public String getPseudo() {
+		return pseudo;
+	}
+
 	public String[] getScores() {
-		String[] scores = new String[gereScores.getTOP()];
+		String[] scores = new String[GereScores.getTOP()];
 		int indice = 0;
 		for(Score score: gereScores.getTableJeu()) {
-			scores[indice] = score.getValeur() + " " + score.getPseudo() + " " + score.getTemps()/60 + ":" + score.getTemps()%60;
+			scores[indice] = score.getValeur() + " point(s) by " + score.getPseudo() + " in " + score.getTemps()/60 + ":" + score.getTemps()%60 + " seconds";
 			indice ++;
 		};
 		return scores;
+	}
+
+	public void afficherScores() {
+		modeDeJeu = "05";
+		gereScores.export();
 	}
 }

@@ -62,7 +62,7 @@ public class GereScores {
 	public void addScore(String pseudo, int valeur, int temps) {
 		tableJeu.add(new Score(pseudo, valeur, temps));
 		while(tableJeu.size() > TOP) {
-			tableJeu.remove(TOP);
+			tableJeu.remove(tableJeu.last());
 		}
 		save();
 	}
