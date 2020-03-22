@@ -1,22 +1,36 @@
 package application;
 
+import java.awt.Desktop;
+import java.awt.Frame;
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import model.Model;
 
 public class Controleur{
@@ -28,7 +42,7 @@ public class Controleur{
 	private Button ajouter, soustraire, multiplier, diviser;
 
 	@FXML
-	private GridPane tabPlaques;
+	private GridPane tabPlaques, tabScoreAfterTop3;
 
 	@FXML
 	private Button annuler, valider, proposer, supprimer;
@@ -40,14 +54,21 @@ public class Controleur{
 	private TextField pseudo;
 
 	@FXML
-	private Label operation;
+	private Label operation, score1, score2, score3;
 
 	@FXML
 	private TextArea content;
+	
+	@FXML
+	private Pane ongletScores;
+	
+	@FXML
+	private SplitPane ongletJeu;
 
 	private SimpleDateFormat formatDateNow = new SimpleDateFormat("HH:mm:ss");
 	private Model model;
 	private Button[] plaque = new Button[6]; 
+	private Text[] all10Scores = new Text[10]; 
 	private int indice1, indice2;
 	private String operateur;
 	private int secondsChrono;
@@ -56,6 +77,8 @@ public class Controleur{
 
 	@FXML
 	private void commencer(ActionEvent commencer) {
+		ongletScores.setVisible(false);
+		ongletJeu.setVisible(true);
 		if(pseudo.getText() == null || pseudo.getText().length()<3 || pseudo.getText().length()>8) warningPseudo.setVisible(true);
 		else {
 			preparer();
@@ -71,6 +94,7 @@ public class Controleur{
 		operation.setText(operation.getText() + boutonOperation.getText());
 		changeButtonOprationDisabilitie(true);
 		for (Button valeur: plaque) valeur.setDisable(false);
+		plaque[indice1].setDisable(true);
 	}
 
 	private void changeButtonOprationDisabilitie(boolean state) {
@@ -105,7 +129,8 @@ public class Controleur{
 	
 	@FXML
 	private void supprimer(ActionEvent supprimer) {
-		changeButtonOprationDisabilitie(false);
+		if(!content.getText().isEmpty()) {
+			changeButtonOprationDisabilitie(false);
 		for (Button valeur: plaque) valeur.setDisable(false);
 		for (Button oldValues: plaque) {
 			tabPlaques.getChildren().remove(oldValues);
@@ -115,19 +140,77 @@ public class Controleur{
 		creationBoutonsPlaques(model.supprimerEtape());
 		indice1 = -1;
 		indice2 = -1;
+		}	
 	}
 	
 	@FXML
-	private void proposer(ActionEvent proposer) {
+	private void proposerValeur(ActionEvent proposerValeur) {
 		timerChrono.cancel();
 		model.score(secondsChrono);
+				 
+		JOptionPane.showMessageDialog(null, "ton score est de " 
+		+ model.getScore(), "Bravo " 
+		+ model.getPseudo() ,JOptionPane.INFORMATION_MESSAGE); 
+
+		jouer.setDisable(false);
+		scores.setDisable(false);
+
+		for (Button oldValues: plaque) {
+			tabPlaques.getChildren().remove(oldValues);
+		}
+		ajouter.setDisable(true);
+		soustraire.setDisable(true);
+		multiplier.setDisable(true);
+		diviser.setDisable(true);
+
+		annuler.setDisable(true);
+		valider.setDisable(true);
+		proposer.setDisable(true);
+		supprimer.setDisable(true);
+		
+		content.setText(null);
+		model.setDureeMax(180);
 	}
 	
 	@FXML
 	private void scores(ActionEvent scores) {
+		ouvrirFichierHtml();
+		
+		ongletScores.setVisible(true);
+		ongletJeu.setVisible(false);
 		String[] tabScores = model.getScores();
+		if(tabScores[0] != null) score1.setText(tabScores[0].replace("seconds", "").replace(" point(s)", "").replace(" by ", "\n").replace(" in ", ", "));
+		if(tabScores[1] != null) score2.setText(tabScores[1].replace("seconds", "").replace("point(s)", "").replace(" by ", "\n").replace(" in ", ", "));
+		if(tabScores[2] != null) score3.setText(tabScores[2].replace("seconds", "").replace("point(s)", "").replace(" by ", "\n").replace(" in ", ", "));
+		for(int i = 3; i < tabScores.length; i++) {
+			if(tabScores[i] != null) 
+			{
+				all10Scores[i] = new Text(tabScores[i]);
+				all10Scores[i].toFront();
+				tabScoreAfterTop3.add(all10Scores[i], 1, i-3);
+			}
+			else tabScoreAfterTop3.add(new Separator(), 1, i-3);
+		}
 	}
 
+
+	/**
+	 * genere plus affiche les fichier scores.html
+	 */
+	private void ouvrirFichierHtml() {
+		model.afficherScores();
+		
+		File scoresHtml = new File("score/scores.html");
+		  try {
+			Desktop.getDesktop().browse(scoresHtml.toURI());
+		} catch (IOException error) {
+			error.printStackTrace();
+		}
+	}
+
+	/**
+	 * prepare le jeu c'est a dire adapte la visibilite des boutons, demarre le chrono et affiche les plaques ainsi que le chiffre a trouver
+	 */
 	private void preparer() {
 		int[] plaques = new int[6];
 		if(warningPseudo.isVisible()) warningPseudo.setVisible(false);
@@ -189,6 +272,8 @@ public class Controleur{
 
 	@FXML
 	private void initialize(){
+		ongletScores.setVisible(false);
+		ongletJeu.setVisible(true);
 		indice1 = -1;
 		indice2 = -1;
 		model = Model.getInstance();
