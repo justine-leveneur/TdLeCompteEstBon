@@ -1,8 +1,10 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.TreeSet;
 
 public class Model {
 
@@ -25,6 +27,7 @@ public class Model {
 	private Model()
 	{
 		this.modeDeJeu = "00";
+		this.dureeMax = 180;
 		this.pseudo = null;
 		this.nbATrouver = rand.nextInt(999 - 100 + 1) + 100;
 		this.deroulement = new LinkedList <Etape>();
@@ -70,6 +73,12 @@ public class Model {
 		Etape derniereEtape = deroulement.get(deroulement.size()-1);
 		return derniereEtape.getTabPlaques();
 	}
+
+	public void score(int temps) {
+		Etape derniereEtapeValidee = deroulement.get(deroulement.size()-2);
+		int score = nbATrouver-derniereEtapeValidee.getResultat();
+		gereScores.addScore(pseudo, score, temps);
+	}
 	
 	public int[] creerNouvellesPlaques(int indice1, int indice2) {
 		Etape derniereEtape = deroulement.get(deroulement.size()-1);
@@ -101,5 +110,21 @@ public class Model {
 		this.nbATrouver = rand.nextInt(999 - 100 + 1) + 100;
 	}
 
+	public int getDureeMax() {
+		return dureeMax;
+	}
 
+	public void setDureeMax(int dureeMax) {
+		this.dureeMax = dureeMax;
+	}
+
+	public String[] getScores() {
+		String[] scores = new String[gereScores.getTOP()];
+		int indice = 0;
+		for(Score score: gereScores.getTableJeu()) {
+			scores[indice] = score.getValeur() + " " + score.getPseudo() + " " + score.getTemps()/60 + ":" + score.getTemps()%60;
+			indice ++;
+		};
+		return scores;
+	}
 }

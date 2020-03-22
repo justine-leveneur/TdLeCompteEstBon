@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import java.lang.*?>
@@ -46,12 +48,83 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
+                  <Pane disable="true" prefHeight="456.0" prefWidth="700.0" visible="false">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="96.0" layoutX="302.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@vues/winner.png" />
+                           </image></ImageView>
+                        <ImageView fitHeight="61.0" fitWidth="79.0" layoutX="200.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@vues/medal%20silver.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="61.0" fitWidth="79.0" layoutX="439.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@vues/medal%20bronze.png" />
+                           </image>
+                        </ImageView>
+                        <GridPane layoutX="39.0" layoutY="273.0" prefHeight="160.0" prefWidth="592.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="114.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="557.0" minWidth="10.0" prefWidth="509.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="4" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <Text layoutX="45.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Text layoutX="45.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="7" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="9" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                              <Text fx:id="score4" strokeType="INSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="510.0859375" GridPane.columnIndex="1" />
+                              <Text fx:id="score5" strokeType="INSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="510.0859375" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Text fx:id="score6" strokeType="INSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="510.0859375" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Text fx:id="score7" strokeType="INSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="510.0859375" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Text fx:id="score8" strokeType="INSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="510.0859375" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Text fx:id="score9" strokeType="INSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="510.0859375" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Text fx:id="score10" strokeType="INSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="510.0859375" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Separator fx:id="noScore4" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Separator fx:id="noScore5" prefWidth="200.0" GridPane.columnIndex="1" />
+                              <Separator fx:id="noScore6" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Separator fx:id="noScore7" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Separator fx:id="noScore8" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Separator fx:id="noScore9" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Separator fx:id="noScore10" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                           </children>
+                        </GridPane>
+                        <Label fx:id="score1" layoutX="281.0" layoutY="98.0" prefHeight="61.0" prefWidth="139.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="score2" layoutX="161.0" layoutY="206.0" prefHeight="61.0" prefWidth="139.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="score3" layoutX="400.0" layoutY="206.0" prefHeight="61.0" prefWidth="139.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
                   <SplitPane dividerPositions="0.75" prefHeight="448.0" prefWidth="698.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
                               <Button fx:id="supprimer" disable="true" layoutX="125.0" layoutY="401.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
-                              <Button fx:id="proposer" alignment="CENTER" disable="true" layoutX="354.0" layoutY="276.0" mnemonicParsing="false" text="Proposer">
+                              <Button fx:id="proposer" alignment="CENTER" disable="true" layoutX="354.0" layoutY="276.0" mnemonicParsing="false" onAction="#proposer" text="Proposer">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

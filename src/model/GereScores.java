@@ -14,41 +14,57 @@ import java.util.TreeSet;
 public class GereScores {
 	private TreeSet <Score> tableJeu;
 	private static int TOP = 10;
-	public static String PATH = "../score/score.ser";
-	public static String HTMLFILE = "../score/scores.html";
+	public static String PATH = "score/score.ser";
+	public static String HTMLFILE = "score/scores.html";
 
 	/** 
 	 * Constructeur privé 
 	 * gere les scores
 	 */
-    private GereScores()
-    {}
- 
-    /** 
-     * Instance unique non pré-initialisée 
-     */
-    private static GereScores INSTANCE = null;
-    
-    /** 
-     * Point d'accès pour l'instance unique du singleton
-     */
-    public static GereScores getInstance()
-    {   
-    	if (INSTANCE == null) INSTANCE = new GereScores(); 
-    	return INSTANCE;
-    }
+	private GereScores()
+	{
+		try {
+			File scoresSer = new File(PATH);
+			if(!scoresSer.exists()) {
+				scoresSer.createNewFile();
+			}
+
+			File scoresHtml = new File(PATH);
+			if(!scoresHtml.exists()) {
+				scoresHtml.createNewFile();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/** 
+	 * Instance unique non pré-initialisée 
+	 */
+	private static GereScores INSTANCE = null;
+
+	/** 
+	 * Point d'accès pour l'instance unique du singleton
+	 */
+	public static GereScores getInstance()
+	{   
+		if (INSTANCE == null) INSTANCE = new GereScores(); 
+		return INSTANCE;
+	}
 
 	/**
 	 * ajout du score d'un joueur
 	 * @param pseudo
 	 * @param valeur
 	 * @param temps
+	 * @throws IOException 
 	 */
 	public void addScore(String pseudo, int valeur, int temps) {
 		tableJeu.add(new Score(pseudo, valeur, temps));
 		while(tableJeu.size() > TOP) {
 			tableJeu.remove(TOP);
 		}
+		save();
 	}
 
 	/**
@@ -58,7 +74,7 @@ public class GereScores {
 		File file = new File(PATH);
 		tableJeu = new TreeSet <Score>();
 
-		if(file.exists()) {
+		if(file.exists() && file.length() != 0) {
 			ObjectInputStream oos = null;
 			try {
 				FileInputStream fichier = new FileInputStream(PATH);
@@ -93,6 +109,7 @@ public class GereScores {
 
 	/**
 	 * met a jour le fichier avec le tableau de scores
+	 * @throws IOException 
 	 */
 	public void save() {
 		ObjectOutputStream oos = null;
@@ -156,6 +173,12 @@ public class GereScores {
 	public void setTableJeu(TreeSet<Score> tableJeu) {
 		this.tableJeu = tableJeu;
 	}
-	
-	
+
+	public static int getTOP() {
+		return TOP;
+	}
+
+	public static void setTOP(int tOP) {
+		TOP = tOP;
+	}
 }

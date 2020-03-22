@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -50,6 +50,9 @@ public class Controleur{
 	private Button[] plaque = new Button[6]; 
 	private int indice1, indice2;
 	private String operateur;
+	private int secondsChrono;
+	private Timer timerChrono;
+
 
 	@FXML
 	private void commencer(ActionEvent commencer) {
@@ -59,6 +62,7 @@ public class Controleur{
 		}
 		model.jouer();
 	}
+	
 
 	@FXML
 	private void choixOperation (ActionEvent choixOperation) {
@@ -115,7 +119,13 @@ public class Controleur{
 	
 	@FXML
 	private void proposer(ActionEvent proposer) {
-		
+		timerChrono.cancel();
+		model.score(secondsChrono);
+	}
+	
+	@FXML
+	private void scores(ActionEvent scores) {
+		String[] tabScores = model.getScores();
 	}
 
 	private void preparer() {
@@ -126,6 +136,7 @@ public class Controleur{
 		plaques = model.preparer(pseudo.getText());
 		creationBoutonsPlaques(plaques);		
 		nbATrouver.setText(model.getNbATrouver());
+		secondsChrono = model.getDureeMax();
 		defilerChrono();
 	}
 
@@ -203,10 +214,9 @@ public class Controleur{
 	}
 
 	private void defilerChrono() {
-		Timer timer = new Timer();
-
+		timerChrono = new Timer();
+		
 		TimerTask chronometre = new TimerTask() {
-			int secondsChrono = 180;
 			String chronoFormat = null;
 
 			public void run() {
@@ -228,6 +238,6 @@ public class Controleur{
 				if(secondsChrono<61)chrono.setFill(Color.RED);
 			}
 		};
-		timer.schedule(chronometre, 1000, 1000);
+		timerChrono.schedule(chronometre, 1000, 1000);
 	}
 }
