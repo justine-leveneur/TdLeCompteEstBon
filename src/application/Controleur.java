@@ -130,7 +130,8 @@ public class Controleur{
 	 */
 	@FXML
 	private void valider(ActionEvent valider) {
-		content.setText(content.getText() + "\n" + model.calculer(indice1, indice2, operateur));// ajoute l'equation dans le champ "content" qui s'affiche instantannement
+		if (model.calculer(indice1, indice2, operateur) != null){ //si le resultat est bon
+			content.setText(content.getText() + "\n" + model.calculer(indice1, indice2, operateur));// ajoute l'equation dans le champ "content" qui s'affiche instantannement
 		operation.setText("");// vide le champ "operation" qui s'affiche instantannement 
 		changeButtonOprationDisabilitie(false);
 		for (Button valeur: plaque) valeur.setDisable(false);// les boutons nombre peuvent etre selectionnés
@@ -140,6 +141,7 @@ public class Controleur{
 		creationBoutonsPlaques(model.creerNouvellesPlaques(indice1, indice2));// cree les nouvelles plaques
 		indice1 = -1; // reinitalise les indices
 		indice2 = -1;
+		}	
 	}
 
 	/**

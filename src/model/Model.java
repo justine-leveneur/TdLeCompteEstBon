@@ -88,8 +88,9 @@ public class Model {
 	 */
 	public String calculer(int indice1, int indice2, String operation) {
 		Etape derniereEtape = deroulement.get(deroulement.size()-1);
-		derniereEtape.calculer(indice1, indice2, operation);// effectue le calcul	
-		return derniereEtape.resultatSousFormeDeString();// retoune le resultat sous forme de chaine de caractere
+		derniereEtape.calculer(indice1, indice2, operation);// effectue le calcul
+		if(derniereEtape.calculIsOk()) return derniereEtape.resultatSousFormeDeString();// retoune le resultat sous forme de chaine de caractere si le calcul est bon
+		else return null;
 	}
 	
 	/**
