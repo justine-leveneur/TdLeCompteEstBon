@@ -8,37 +8,47 @@ public class Etape {
 	private String operation;
 	private int resultat;
 	
+	/**
+	 * Constructeur publique 
+	 * @param plaques
+	 */
 	public Etape(int[] plaques) {
 		this.tabPlaques = plaques;
 	}
 	
+	/**
+	 * calcule une equation
+	 * @param indicePlaque1
+	 * @param indicePlaque2
+	 * @param operation
+	 */
 	public void calculer(int indicePlaque1, int indicePlaque2, String operation) {
-		if(indicePlaque1 == indicePlaque2);// TODO
-		else {
-			this.indice1 = indicePlaque1;
-			this.indice2 = indicePlaque2;
-			this.operation = operation;
-			calculerLeResultat(indicePlaque1, indicePlaque2, operation);
-		}		
-	}
+		if(operation.equals("+")) resultat = tabPlaques[indicePlaque1]+tabPlaques[indicePlaque2]; //si l'operation est +
+		else if(operation.equals("-")) resultat = tabPlaques[indicePlaque1]-tabPlaques[indicePlaque2]; //si l'operation est -
+		else if(operation.equals("x")) resultat = tabPlaques[indicePlaque1]*tabPlaques[indicePlaque2]; //si l'operation est x
 	
-	private void calculerLeResultat(int indicePlaque1, int indicePlaque2, String operation) {
-		if(operation.equals("+")) resultat = tabPlaques[indicePlaque1]+tabPlaques[indicePlaque2];
-		else if(operation.equals("-")) resultat = tabPlaques[indicePlaque1]-tabPlaques[indicePlaque2];
-		else if(operation.equals("x")) resultat = tabPlaques[indicePlaque1]*tabPlaques[indicePlaque2];
-		
 		else if(tabPlaques[indicePlaque1]%tabPlaques[indicePlaque2] == 0) resultat = tabPlaques[indicePlaque1]/tabPlaques[indicePlaque2];
 		else if(tabPlaques[indicePlaque1]%tabPlaques[indicePlaque2] != 0) calculOk = false;
+		//si l'operation est /
 	}
 	
+	/**
+	 * @return le resultat sous forme de chaine de caractere
+	 */
 	public String resultatSousFormeDeString() {
 		return tabPlaques[indice1] + operation + tabPlaques[indice2] + "=" + resultat;
 	}
 
+	/**
+	 * @return les plaques d'une etape
+	 */
 	public int[] getTabPlaques() {
 		return tabPlaques;
 	}
 	
+	/**
+	 * @return retourne le resultat d'une etape
+	 */
 	public int getResultat() {
 		return resultat;
 	}

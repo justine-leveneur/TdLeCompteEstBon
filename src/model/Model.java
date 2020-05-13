@@ -211,9 +211,9 @@ public class Model {
 	}
 
 	/**
-	 * afficher les scores
+	 * exporte les scores
 	 */
-	public void afficherScores() {
+	public void exportTheScores() {
 		modeDeJeu = "05";
 		gereScores.export();//exporte les scores dans le dossier score
 	}

@@ -14,7 +14,7 @@ import java.util.TreeSet;
 public class GereScores {
 	private TreeSet <Score> tableJeu;
 	private static int TOP = 10;
-	public static String PATH = "score/score.ser";
+	public static String PATH = "score/scores.ser";
 	public static String HTMLFILE = "score/scores.html";
 
 	/** 
@@ -27,12 +27,12 @@ public class GereScores {
 			File scoresSer = new File(PATH);
 			if(!scoresSer.exists()) {
 				scoresSer.createNewFile();
-			}
+			}  //creation du fichier scores.ser
 
 			File scoresHtml = new File(PATH);
 			if(!scoresHtml.exists()) {
 				scoresHtml.createNewFile();
-			}
+			} //creation du fichier scores.html
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -61,8 +61,8 @@ public class GereScores {
 	 */
 	public void addScore(String pseudo, int valeur, int temps) {
 		tableJeu.add(new Score(pseudo, valeur, temps));
-		while(tableJeu.size() > TOP) {
-			tableJeu.remove(tableJeu.last());
+		while(tableJeu.size() > TOP) { //tant que la taille du tableau de score est plus grande que "TOP"
+			tableJeu.remove(tableJeu.last()); // supprime le dernier score
 		}
 		save();
 	}
@@ -74,7 +74,7 @@ public class GereScores {
 		File file = new File(PATH);
 		tableJeu = new TreeSet <Score>();
 
-		if(file.exists() && file.length() != 0) {
+		if(file.exists() && file.length() != 0) { //si le fichier existe pas et n'est pas vide
 			ObjectInputStream oos = null;
 			try {
 				FileInputStream fichier = new FileInputStream(PATH);
@@ -84,7 +84,7 @@ public class GereScores {
 					try {
 						Score sc = (Score) oos.readObject();
 						if(sc != null) {
-							tableJeu.add(sc);
+							tableJeu.add(sc); //ajout des scores
 						}
 					}catch(EOFException e) {
 						reachEnd = true;
@@ -148,13 +148,13 @@ public class GereScores {
 					"				<title>S C O R E S</title>\r\n" + 
 					"			</head>\r\n" + 
 					"			<body>\r\n" + 
-					"				<h1>S C O R E S</h1>\n");
+					"				<h1>S C O R E S</h1>\n"); //ajout des titres
 			for(Score score : tableJeu) {
 				fichier.write("<p><b style=\"color:#B41414\">"+score.getPseudo()
 				+ "="+score.getValeur()
 				+"</b> en "+score.convertToTime()
 				+"<small><small>(le "+score.getDate()
-				+")</small></small></p>\n");
+				+")</small></small></p>\n"); //ajout des scores
 			}
 
 			fichier.write("</body>\r\n" + 
@@ -166,18 +166,32 @@ public class GereScores {
 		} 
 	}
 
+	/**
+	 * @return la collection de score
+	 */
 	public TreeSet<Score> getTableJeu() {
 		return tableJeu;
 	}
 
+	/**
+	 * modifie la collection de scores
+	 * @param tableJeu
+	 */
 	public void setTableJeu(TreeSet<Score> tableJeu) {
 		this.tableJeu = tableJeu;
 	}
 
+	/**
+	 * @return le nombre de scores a garder
+	 */
 	public static int getTOP() {
 		return TOP;
 	}
 
+	/**
+	 * modifie le nombre de scores a garder
+	 * @param tOP
+	 */
 	public static void setTOP(int tOP) {
 		TOP = tOP;
 	}
