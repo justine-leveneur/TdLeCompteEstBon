@@ -1,10 +1,7 @@
 package model;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.TreeSet;
 
 public class Model {
 	private int NB_A_TROUVER_MAX = 999;
