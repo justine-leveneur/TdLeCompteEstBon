@@ -1,18 +1,17 @@
-package testModel;
+package modelTester;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import model.Etape;
 
-class testEtape{
+class TestEtape{
 	private static Etape etape1;
 
 	@BeforeAll
-	public static void init() throws Exception {
+	public static void init() {
 		int[] plaques = {25,60,80,100,99,77};
 		etape1 = new Etape(plaques);
 	}
