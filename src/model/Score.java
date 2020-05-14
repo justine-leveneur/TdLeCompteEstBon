@@ -17,7 +17,7 @@ public class Score implements Comparable <Score> , Serializable{
 	 * @param valeur
 	 * @param temps
 	 */
-	Score(String pseudo, int valeur, int temps){
+	public Score(String pseudo, int valeur, int temps){
 		SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy"); // format de date
 		 
 		this.pseudo = pseudo;
