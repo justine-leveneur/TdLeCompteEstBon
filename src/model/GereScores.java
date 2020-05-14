@@ -29,7 +29,7 @@ public class GereScores {
 				scoresSer.createNewFile();
 			}  //creation du fichier scores.ser
 
-			File scoresHtml = new File(PATH);
+			File scoresHtml = new File(HTMLFILE);
 			if(!scoresHtml.exists()) {
 				scoresHtml.createNewFile();
 			} //creation du fichier scores.html
