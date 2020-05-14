@@ -24,7 +24,7 @@ class TestGereScores {
 	private static TreeSet <Score> scores;
 	
 	@BeforeAll
-	public static void init() throws Exception {		
+	public static void init() {		
 		htmlScores.delete();
 		serScores.delete();
 		scores = new TreeSet<> ();
@@ -32,17 +32,17 @@ class TestGereScores {
 	}
 	
 	@Test
-	@Order(0)
-	void testGetTop() {
-		GereScores.setTOP(10);
-		assertEquals(10,GereScores.getTOP());
-	}
-	
-	@Test
-    @Order(1)
+    @Order(0)
 	void testConstructor () {
 		assertTrue(htmlScores.exists());
 		assertTrue(serScores.exists());
+	}
+	
+	@Test
+	@Order(1)
+	void testGetTop() {
+		GereScores.setTOP(10);
+		assertEquals(10,GereScores.getTOP());
 	}
 	
 	@Test

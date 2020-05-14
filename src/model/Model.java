@@ -180,6 +180,14 @@ public class Model {
 	public int getDureeMax() {
 		return dureeMax;
 	}
+	
+
+	/**
+	 * @return le mode de jeu
+	 */
+	public String getModeDeJeu() {
+		return modeDeJeu;
+	}
 
 	/**
 	 * modifier la duree maximum d'une partie
@@ -216,6 +224,7 @@ public class Model {
 	 */
 	public void exportTheScores() {
 		modeDeJeu = "05";
-		gereScores.export();//exporte les scores dans le dossier score
+		gereScores.export();
+		gereScores.save();//exporte les scores dans le dossier score
 	}
 }

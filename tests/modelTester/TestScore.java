@@ -68,6 +68,12 @@ class TestScore {
 	
 	@Test
 	@Order(6)
+	void testGetDate () {
+		assertNotNull(score1.getDate());
+	}
+	
+	@Test
+	@Order(7)
 	void testCompareTo () {
 		assertEquals(-1,score1.compareTo(score2));
 		assertEquals(1,score2.compareTo(score1));
