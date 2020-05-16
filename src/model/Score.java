@@ -6,24 +6,24 @@ import java.util.Date;
 
 public class Score implements Comparable <Score> , Serializable{
 	
-	private String pseudo;
-	private int valeur; 
-	private int temps; // temps en secondes
-	private String date; 
+	private String sPseudo;
+	private int iValeur; 
+	private int iTemps; // temps en secondes
+	private String sDate; 
 	
 	/**
 	 * constructeur de la classe Score
-	 * @param pseudo
-	 * @param valeur
-	 * @param temps
+	 * @param sPseudo
+	 * @param iValeur
+	 * @param iTemps
 	 */
-	public Score(String pseudo, int valeur, int temps){
+	public Score(String sPseudo, int iValeur, int iTemps){
 		SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy"); // format de date
 		 
-		this.pseudo = pseudo;
-		this.valeur = valeur;
-		this.temps = temps;
-		this.date = formatDate.format(new Date()); // initialiser la date a la date d'ajourd'hui
+		this.sPseudo = sPseudo;
+		this.iValeur = iValeur;
+		this.iTemps = iTemps;
+		this.sDate = formatDate.format(new Date()); // initialiser la date a la date d'ajourd'hui
 	}
 	
 	/**
@@ -32,11 +32,11 @@ public class Score implements Comparable <Score> , Serializable{
 	@Override
 	public int compareTo(Score scoreJ2) {
 		
-		if(this.valeur < scoreJ2.valeur) return -1; // compare en fonction de la valeur
-		else if(this.valeur != scoreJ2.valeur) return 1;
+		if(this.iValeur < scoreJ2.iValeur) return -1; // compare en fonction de la valeur
+		else if(this.iValeur != scoreJ2.iValeur) return 1;
 		else {
-			if(this.temps < scoreJ2.temps) return -1; // compare en fonction du temps
-			else if(this.temps != scoreJ2.temps) return 1;
+			if(this.iTemps < scoreJ2.iTemps) return -1; // compare en fonction du temps
+			else if(this.iTemps != scoreJ2.iTemps) return 1;
 			else return 0;
 		}
 	}
@@ -45,52 +45,44 @@ public class Score implements Comparable <Score> , Serializable{
 	 * @return le temps sous forme "minutes: secondes"
 	 */
 	public String convertToTime() {
-		return (this.temps/60 + ":" + this.temps%60);
-	}
-	
-	
-	/**
-	 * affiche un score
-	 */
-	public void affiche() {
-		System.out.println(this.pseudo.toUpperCase() + " = " + this.valeur + " en " + convertToTime() + "   (le " + this.date + ")");
+		return (this.iTemps/60 + ":" + this.iTemps%60);
 	}
 	
 	/**
 	 * @return le pseudo
 	 */
 	public String getPseudo() {
-		return pseudo;
+		return sPseudo;
 	}
 
 	/**
 	 * modifie le pseudo
-	 * @param pseudo
+	 * @param sPseudo
 	 */
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
+	public void setPseudo(String sPseudo) {
+		this.sPseudo = sPseudo;
 	}
 
 	/**
 	 * @return la valeur
 	 */
 	public int getValeur() {
-		return valeur;
+		return iValeur;
 	}
 
 	/**
 	 * modifie la valeur
-	 * @param valeur
+	 * @param iValeur
 	 */
-	public void setValeur(int valeur) {
-		this.valeur = valeur;
+	public void setValeur(int iValeur) {
+		this.iValeur = iValeur;
 	}
 
 	/**
 	 * @return le temps
 	 */
 	public int getTemps() {
-		return temps;
+		return iTemps;
 	}
 
 	/**
@@ -98,13 +90,13 @@ public class Score implements Comparable <Score> , Serializable{
 	 * @param temps
 	 */
 	public void setTemps(int temps) {
-		this.temps = temps;
+		this.iTemps = temps;
 	}
 
 	/**
 	 * @return la date
 	 */
 	public String getDate() {
-		return date;
+		return sDate;
 	}
 }

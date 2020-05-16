@@ -14,10 +14,10 @@ public class Model {
 	private Random rand = new Random();  
 	private LinkedList<Etape> deroulement;
 	private GereScores gereScores;
-	private String pseudo;
-	private int nbATrouver;
-	private int dureeMax;
-	private String modeDeJeu; 	
+	private String sPseudo;
+	private int iNbATrouver;
+	private int iDureeMax;
+	private String sModeDeJeu; 	
 
 	/** 
 	 * Instance unique non pré-initialisée 
@@ -30,10 +30,10 @@ public class Model {
 	 */
 	private Model()
 	{
-		this.modeDeJeu = "00";
-		this.dureeMax = 60;
-		this.pseudo = null;
-		this.nbATrouver = rand.nextInt(999 - 100 + 1) + 100;
+		this.sModeDeJeu = "00";
+		this.iDureeMax = 60;
+		this.sPseudo = null;
+		this.iNbATrouver = rand.nextInt(999 - 100 + 1) + 100;
 		this.deroulement = new LinkedList <Etape>();
 		this.gereScores = GereScores.getInstance();
 		this.gereScores.load();
@@ -53,16 +53,16 @@ public class Model {
 	 *attendre une action de l'utilisateur
 	 */
 	public void attendre() {
-		this.modeDeJeu = "01";
+		this.sModeDeJeu = "01";
 	}
 
 	/** 
 	 *preparer le jeu: garde le pseudo, met a jour le nombre a trouver, cree la premiere etape
 	 * @return les plaques
 	 */
-	public int[] preparer(String pseudoJoueur) {
-		this.modeDeJeu = "02";
-		this.pseudo = pseudoJoueur;	
+	public int[] preparer(String sPseudoJoueur) {
+		this.sModeDeJeu = "02";
+		this.sPseudo = sPseudoJoueur;	
 		setNbATrouver();// modifie le nombre a trouver
 		Etape etape1 = creerEtape();
 		deroulement.add(etape1);//  ajoute la premiere etape
@@ -73,19 +73,19 @@ public class Model {
 	 * l'utilisateur joue
 	 */
 	public void jouer() {
-		this.modeDeJeu = "03";
+		this.sModeDeJeu = "03";
 	}
 	
 	/**
 	 * calcule une equation composé du premier nombre puis d'une operation et enfin d'un deuxieme nombre
-	 * @param indice1
-	 * @param indice2
-	 * @param operation
+	 * @param iIndice1
+	 * @param iIndice2
+	 * @param sOperation
 	 * @return
 	 */
-	public String calculer(int indice1, int indice2, String operation) {
+	public String calculer(int iIndice1, int iIndice2, String sOperation) {
 		Etape derniereEtape = deroulement.get(deroulement.size()-1);
-		derniereEtape.calculer(indice1, indice2, operation);// effectue le calcul
+		derniereEtape.calculer(iIndice1, iIndice2, sOperation);// effectue le calcul
 		if(derniereEtape.calculIsOk()) return derniereEtape.resultatSousFormeDeString();// retoune le resultat sous forme de chaine de caractere si le calcul est bon
 		else return null;
 	}
@@ -102,15 +102,15 @@ public class Model {
 
 	/**
 	 * genere le score du joueur
-	 * @param temps
+	 * @param iTemps
 	 */
-	public void score(int temps) {
+	public void score(int iTemps) {
 		int score;
-		if(deroulement.size() == 1) score = nbATrouver;// si le joueur n'a effectué aucune operation
+		if(deroulement.size() == 1) score = iNbATrouver;// si le joueur n'a effectué aucune operation
 		else {
 			Etape derniereEtapeValidee = deroulement.get(deroulement.size()-2);
-			score = Math.abs(nbATrouver-derniereEtapeValidee.getResultat());
-			gereScores.addScore(pseudo, score, dureeMax-temps);	// ajoute le score si il fait parti du top 10
+			score = Math.abs(iNbATrouver-derniereEtapeValidee.getResultat());
+			gereScores.addScore(sPseudo, score, iDureeMax-iTemps);	// ajoute le score si il fait parti du top 10
 		}
 	}
 	
@@ -119,26 +119,26 @@ public class Model {
 	 * @return le score du joueur
 	 */
 	public int getScore() {
-		if(deroulement.size() == 1) return nbATrouver; // si le joueur n'a effectué aucune operation
+		if(deroulement.size() == 1) return iNbATrouver; // si le joueur n'a effectué aucune operation
 		else {
 			Etape derniereEtapeValidee = deroulement.get(deroulement.size()-2); 
-			return Math.abs(nbATrouver-derniereEtapeValidee.getResultat()); // sinon retourne le resultat de la derniere operation effectuee
+			return Math.abs(iNbATrouver-derniereEtapeValidee.getResultat()); // sinon retourne le resultat de la derniere operation effectuee
 		}	
 	}
 	
 	/**
 	 * cree les nouvelles plaques suite a l'equation choisie par le joueur
-	 * @param indice1
-	 * @param indice2
+	 * @param iIndice1
+	 * @param iIndice2
 	 * @return les plaques
 	 */
-	public int[] creerNouvellesPlaques(int indice1, int indice2) {
+	public int[] creerNouvellesPlaques(int iIndice1, int iIndice2) {
 		Etape derniereEtape = deroulement.get(deroulement.size()-1);// creation de la derniere etape en recuperant le dernier indice de la liste d'etape
 		int[] plaquesOld = derniereEtape.getTabPlaques();// on garde les anciennes plaques pour pouvoir creer les suivantes
 		int[] newPlaques = new int[plaquesOld.length-1];// initialisation du tableau comportant les nouvelles plaques
 		int indiceTabNewPlaques = 0;
 		for (int i = 0; i < plaquesOld.length; i++) { // remplissage du tableau des nouvelles plaques
-			if(i != indice1 && i != indice2) {
+			if(i != iIndice1 && i != iIndice2) {
 				newPlaques[indiceTabNewPlaques] = plaquesOld[i];
 				indiceTabNewPlaques++;
 			}
@@ -161,21 +161,21 @@ public class Model {
 	 * @return le nombre a trouver sous forme de chaine de caractere
 	 */
 	public String getNbATrouver() {
-		return "" + nbATrouver;
+		return "" + iNbATrouver;
 	}
 
 	/**
 	 * modifie le nombre a trouver par un nombre aleatoire compris entre le min et le max
 	 */
 	public void setNbATrouver() {
-		this.nbATrouver = rand.nextInt(NB_A_TROUVER_MAX - NB_A_TROUVER_MIN + 1) + NB_A_TROUVER_MIN;
+		this.iNbATrouver = rand.nextInt(NB_A_TROUVER_MAX - NB_A_TROUVER_MIN + 1) + NB_A_TROUVER_MIN;
 	}
 
 	/**
 	 * @return la duree maximum d'une partie
 	 */
 	public int getDureeMax() {
-		return dureeMax;
+		return iDureeMax;
 	}
 	
 
@@ -183,22 +183,22 @@ public class Model {
 	 * @return le mode de jeu
 	 */
 	public String getModeDeJeu() {
-		return modeDeJeu;
+		return sModeDeJeu;
 	}
 
 	/**
 	 * modifier la duree maximum d'une partie
-	 * @param dureeMax
+	 * @param iDureeMax
 	 */
-	public void setDureeMax(int dureeMax) {
-		this.dureeMax = dureeMax;
+	public void setDureeMax(int iDureeMax) {
+		this.iDureeMax = iDureeMax;
 	}
 
 	/**
 	 * @return le pseudo
 	 */
 	public String getPseudo() {
-		return pseudo;
+		return sPseudo;
 	}
 
 	/**
@@ -220,7 +220,7 @@ public class Model {
 	 * exporte les scores
 	 */
 	public void exportTheScores() {
-		modeDeJeu = "05";
+		sModeDeJeu = "05";
 		gereScores.export();
 		gereScores.save();//exporte les scores dans le dossier score
 	}

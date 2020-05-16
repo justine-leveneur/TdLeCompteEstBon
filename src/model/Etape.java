@@ -3,10 +3,10 @@ package model;
 public class Etape {
 	
 	private int[] tabPlaques = new int [6];
-	private boolean calculOk;
-	private int indice1, indice2;
-	private String operation;
-	private int resultat;
+	private boolean bCalculOk;
+	private int iIndice1, iIndice2;
+	private String sOperation;
+	private int iResultat;
 	
 	/**
 	 * Constructeur publique 
@@ -18,21 +18,21 @@ public class Etape {
 	
 	/**
 	 * calcule une equation
-	 * @param indicePlaque1
-	 * @param indicePlaque2
-	 * @param operation
+	 * @param iIndicePlaque1
+	 * @param iIndicePlaque2
+	 * @param sOperation
 	 */
-	public void calculer(int indicePlaque1, int indicePlaque2, String operation) {
-		this.indice1 = indicePlaque1;
-		this.indice2 = indicePlaque2;
-		this.operation = operation;
-		this.calculOk = true;
-		if(operation.equals("+")) resultat = tabPlaques[indicePlaque1]+tabPlaques[indicePlaque2]; //si l'operation est +
-		else if(operation.equals("-")) resultat = tabPlaques[indicePlaque1]-tabPlaques[indicePlaque2]; //si l'operation est -
-		else if(operation.equals("x")) resultat = tabPlaques[indicePlaque1]*tabPlaques[indicePlaque2]; //si l'operation est x
+	public void calculer(int iIndicePlaque1, int iIndicePlaque2, String sOperation) {
+		this.iIndice1 = iIndicePlaque1;
+		this.iIndice2 = iIndicePlaque2;
+		this.sOperation = sOperation;
+		this.bCalculOk = true;
+		if(sOperation.equals("+")) iResultat = tabPlaques[iIndicePlaque1]+tabPlaques[iIndicePlaque2]; //si l'operation est +
+		else if(sOperation.equals("-")) iResultat = tabPlaques[iIndicePlaque1]-tabPlaques[iIndicePlaque2]; //si l'operation est -
+		else if(sOperation.equals("x")) iResultat = tabPlaques[iIndicePlaque1]*tabPlaques[iIndicePlaque2]; //si l'operation est x
 	
-		else if(tabPlaques[indicePlaque1]%tabPlaques[indicePlaque2] == 0) resultat = tabPlaques[indicePlaque1]/tabPlaques[indicePlaque2];
-		else if(tabPlaques[indicePlaque1]%tabPlaques[indicePlaque2] != 0) this.calculOk = false;
+		else if(tabPlaques[iIndicePlaque1]%tabPlaques[iIndicePlaque2] == 0) iResultat = tabPlaques[iIndicePlaque1]/tabPlaques[iIndicePlaque2];
+		else if(tabPlaques[iIndicePlaque1]%tabPlaques[iIndicePlaque2] != 0) this.bCalculOk = false;
 		//si l'operation est /
 	}
 	
@@ -40,14 +40,14 @@ public class Etape {
 	 * @return le resultat sous forme de chaine de caractere
 	 */
 	public String resultatSousFormeDeString() {
-		return tabPlaques[indice1] + operation + tabPlaques[indice2] + "=" + resultat;
+		return tabPlaques[iIndice1] + sOperation + tabPlaques[iIndice2] + "=" + iResultat;
 	}
 	
 	/**
 	 * @return vrai si le calcul est resolu sinon false
 	 */
 	public boolean calculIsOk() {
-		return this.calculOk;
+		return this.bCalculOk;
 	}
 
 	/**
@@ -61,6 +61,6 @@ public class Etape {
 	 * @return retourne le resultat d'une etape
 	 */
 	public int getResultat() {
-		return resultat;
+		return iResultat;
 	}
 }

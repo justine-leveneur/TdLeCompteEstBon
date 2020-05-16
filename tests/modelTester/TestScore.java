@@ -2,9 +2,6 @@ package modelTester;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -25,20 +22,9 @@ class TestScore {
 	}
 
 	@Test
-	@Order(0)
+	@Order(1)
 	void testConvertToTime () {
 		assertEquals("1:20",score1.convertToTime());
-	}
-	
-	@Test
-	@Order(1)
-	void testAffiche () {
-		ByteArrayOutputStream bOutput = new ByteArrayOutputStream();
-		PrintStream ps = new PrintStream(bOutput);
-	    System.setOut(ps);
-		score1.affiche();
-		ps.close();
-		assertNotEquals(0,bOutput.toByteArray().length);
 	}
 	
 	@Test

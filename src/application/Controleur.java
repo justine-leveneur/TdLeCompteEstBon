@@ -63,9 +63,9 @@ public class Controleur{
 	private Model model;
 	private Button[] plaque = new Button[6]; 
 	private Text[] all10Scores = new Text[10]; 
-	private int indice1, indice2;
-	private String operateur;
-	private int secondsChrono;
+	private int iIndice1, iIndice2;
+	private String sOperater;
+	private int iSecondsChrono;
 	private Timer timerChrono;
 
 
@@ -82,7 +82,7 @@ public class Controleur{
 		}
 		else {
 
-			indice1=indice2=-1;// initalisation des indices a -1
+			iIndice1=iIndice2=-1;// initalisation des indices a -1
 			operation.setVisible(true);// les bouttons operations sont visibles
 			operation.setText("");// l'espace qui affiche les operations est vide
 			tabPlaques.getChildren().removeAll(plaque);// enleve les anciennes plaques
@@ -99,11 +99,11 @@ public class Controleur{
 	@FXML
 	private void choixOperation (ActionEvent choixOperation) {
 		Button boutonOperation = (Button) choixOperation.getSource();// recupere le bouton sur lequel le jouer a cliqué
-		operateur = boutonOperation.getText(); // recupere le type d'operation : +,-,x,/
+		sOperater = boutonOperation.getText(); // recupere le type d'operation : +,-,x,/
 		operation.setText(operation.getText() + boutonOperation.getText());
 		changeButtonOprationDisabilitie(true); // les boutons operation ne peuvent plus etre selectionnés
 		for (Button valeur: plaque) valeur.setDisable(false);// les boutons des nombres peuvent etre selectionnés
-		plaque[indice1].setDisable(true);// mais le bouton du premier nombre selectionné n'est pas disponible car une plaque ne sert qu'une seule fois
+		plaque[iIndice1].setDisable(true);// mais le bouton du premier nombre selectionné n'est pas disponible car une plaque ne sert qu'une seule fois
 	}
 
 	/**
@@ -123,17 +123,17 @@ public class Controleur{
 	 */
 	@FXML
 	private void valider(ActionEvent valider) {
-		if (model.calculer(indice1, indice2, operateur) != null){ //si le resultat est bon
-			content.setText(content.getText() + "\n" + model.calculer(indice1, indice2, operateur));// ajoute l'equation dans le champ "content" qui s'affiche instantannement
+		if (model.calculer(iIndice1, iIndice2, sOperater) != null){ //si le resultat est bon
+			content.setText(content.getText() + "\n" + model.calculer(iIndice1, iIndice2, sOperater));// ajoute l'equation dans le champ "content" qui s'affiche instantannement
 		operation.setText("");// vide le champ "operation" qui s'affiche instantannement 
 		changeButtonOprationDisabilitie(false);
 		for (Button valeur: plaque) valeur.setDisable(false);// les boutons nombre peuvent etre selectionnés
 		for (Button oldValues: plaque) {
 			tabPlaques.getChildren().remove(oldValues);
 		} // supprime les plaques
-		creationBoutonsPlaques(model.creerNouvellesPlaques(indice1, indice2));// cree les nouvelles plaques
-		indice1 = -1; // reinitalise les indices
-		indice2 = -1;
+		creationBoutonsPlaques(model.creerNouvellesPlaques(iIndice1, iIndice2));// cree les nouvelles plaques
+		iIndice1 = -1; // reinitalise les indices
+		iIndice2 = -1;
 		}	
 	}
 
@@ -146,8 +146,8 @@ public class Controleur{
 		changeButtonOprationDisabilitie(false);
 		for (Button valeur: plaque) valeur.setDisable(false);
 		operation.setText("");// vide le champ "operation" qui s'affiche instantannement 
-		indice1 = -1; // reinitalise les indices
-		indice2 = -1;
+		iIndice1 = -1; // reinitalise les indices
+		iIndice2 = -1;
 	}
 	
 	/**
@@ -165,8 +165,8 @@ public class Controleur{
 		content.setText(content.getText().substring(0, content.getText().lastIndexOf("\n")));// supprime la derniere equation du champ "content"
 		operation.setText("");// vide le champ "operation" qui s'affiche instantannement 
 		creationBoutonsPlaques(model.supprimerEtape());// recree les plaques de l'etape precedente
-		indice1 = -1; // reinitalise les indices
-		indice2 = -1;
+		iIndice1 = -1; // reinitalise les indices
+		iIndice2 = -1;
 		}	
 	}
 	
@@ -185,7 +185,7 @@ public class Controleur{
 	 */
 	private void finDuJeuEtRecuperationDuScore() {
 		timerChrono.cancel();// arret du chronometre
-		model.score(secondsChrono);// transmet le temps au model
+		model.score(iSecondsChrono);// transmet le temps au model
 		
 		jouer.setDisable(false); // les boutons "jouer" et "scores" sont utilisables
 		scores.setDisable(false);
@@ -206,7 +206,7 @@ public class Controleur{
 		operation.setVisible(false); // le champ "operation" nest plus visible
 		content.setText("");// le champ "content" est vidé
 		
-		secondsChrono = model.getDureeMax();
+		iSecondsChrono = model.getDureeMax();
 		chrono.setText(chronoFormate()); // reinitialisation du chrono
 	}
 	
@@ -263,7 +263,7 @@ public class Controleur{
 		plaques = model.preparer(pseudo.getText()); //transmet le pseudo au model
 		creationBoutonsPlaques(plaques); //cree les palques
 		nbATrouver.setText(model.getNbATrouver()); //modifie le nombre a trouver
-		secondsChrono = model.getDureeMax(); //reinitialise le chrono
+		iSecondsChrono = model.getDureeMax(); //reinitialise le chrono
 		defilerChrono(); 
 	}
 
@@ -287,16 +287,16 @@ public class Controleur{
 				 * et d'annuler ou de valider le calcul
 				 */
 				private void addIndices(Button boutonValeur) {
-					if(indice1 == -1) // premiere valeur selectionnee
+					if(iIndice1 == -1) // premiere valeur selectionnee
 					{
-						indice1 = Integer.parseInt(boutonValeur.getId());
+						iIndice1 = Integer.parseInt(boutonValeur.getId());
 						operation.setText(operation.getText() + boutonValeur.getText());
 						for (Button valeur: plaque) valeur.setDisable(true); //desactive les boutons plaques 
 						changeButtonOprationDisabilitie(false); //active les boutons operation
 					}
-					else if(indice2 == -1 && indice1 != -1) //deuxieme valeur selectionnee
+					else if(iIndice2 == -1 && iIndice1 != -1) //deuxieme valeur selectionnee
 					{
-						indice2 = Integer.parseInt(boutonValeur.getId());
+						iIndice2 = Integer.parseInt(boutonValeur.getId());
 						operation.setText(operation.getText() + boutonValeur.getText());
 						for (Button valeur: plaque) valeur.setDisable(true); //desactive tous les boutons
 						changeButtonOprationDisabilitie(true); //desactive tous les boutons
@@ -332,8 +332,8 @@ public class Controleur{
 	private void initialize(){
 		ongletScores.setVisible(false); // le jeu s'ouvre sur la page du jeu
 		ongletJeu.setVisible(true);
-		indice1 = -1; //aucune plaque selectionnee
-		indice2 = -1;//aucune plaque selectionnee
+		iIndice1 = -1; //aucune plaque selectionnee
+		iIndice2 = -1;//aucune plaque selectionnee
 		model = Model.getInstance();
 		chrono.setText("0" + (int)(model.getDureeMax()/60) + ":0" + model.getDureeMax()%60); //affiche le chrono
 		nbATrouver.setText(model.getNbATrouver()); //affiche une valeur aleatoire du nombre a trouver
@@ -367,9 +367,9 @@ public class Controleur{
 		TimerTask chronometre = new TimerTask() {
 
 			public void run() { //lance le chrono en thread
-				secondsChrono -= 1; //diminue le chronometre de 1 seconde
+				iSecondsChrono -= 1; //diminue le chronometre de 1 seconde
 				chrono.setText(chronoFormate()); //formate les chronometre
-				if(secondsChrono == 0) { //lorsqu'il atteint 0, arret du chrono et de la partie
+				if(iSecondsChrono == 0) { //lorsqu'il atteint 0, arret du chrono et de la partie
 					timerChrono.cancel();
 					finDuJeuEtRecuperationDuScore();
 				}
@@ -379,15 +379,15 @@ public class Controleur{
 	}
 
 	public String chronoFormate() {
-		if(secondsChrono<WARNING_CHRONO+1)chrono.setFill(Color.RED); //lorsque le chronometre arrive a la duree voulu il s'affiche en rouge
-		if(secondsChrono%60<10) {
-			return "0" + (int)(secondsChrono/60) 
+		if(iSecondsChrono<WARNING_CHRONO+1)chrono.setFill(Color.RED); //lorsque le chronometre arrive a la duree voulu il s'affiche en rouge
+		if(iSecondsChrono%60<10) {
+			return "0" + (int)(iSecondsChrono/60) 
 					+ ":0" + 
-					secondsChrono%60;
+					iSecondsChrono%60;
 		}else {
-			return "0" + (int)(secondsChrono/60) 
+			return "0" + (int)(iSecondsChrono/60) 
 					+ ":" + 
-					secondsChrono%60;
+					iSecondsChrono%60;
 		}
 		//affiche le chrono en mm:ss
 	}

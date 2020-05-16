@@ -54,13 +54,13 @@ public class GereScores {
 
 	/**
 	 * ajout du score d'un joueur
-	 * @param pseudo
-	 * @param valeur
-	 * @param temps
+	 * @param sPseudo
+	 * @param iValeur
+	 * @param iTemps
 	 * @throws IOException 
 	 */
-	public void addScore(String pseudo, int valeur, int temps) {
-		tableJeu.add(new Score(pseudo, valeur, temps));
+	public void addScore(String sPseudo, int iValeur, int iTemps) {
+		tableJeu.add(new Score(sPseudo, iValeur, iTemps));
 		while(tableJeu.size() > TOP) { //tant que la taille du tableau de score est plus grande que "TOP"
 			tableJeu.remove(tableJeu.last()); // supprime le dernier score
 		}
@@ -190,9 +190,9 @@ public class GereScores {
 
 	/**
 	 * modifie le nombre de scores a garder
-	 * @param tOP
+	 * @param iTop
 	 */
-	public static void setTOP(int tOP) {
-		TOP = tOP;
+	public static void setTOP(int iTop) {
+		TOP = iTop;
 	}
 }
